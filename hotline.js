@@ -26,3 +26,65 @@ mobileFavoritesCountEl.textContent = favoritesCount;
 mobileCoinsCountEl.textContent = coinsCount;
 mobileCopyCountEl.textContent = copyCount;
 }
+
+// Heart icon functionality
+document.querySelectorAll('.heart-icon').forEach(icon => {
+icon.addEventListener('click', function() {
+if (this.classList.contains('fa-regular')) {
+this.classList.remove('fa-regular');
+this.classList.add('fa-solid', 'text-red-500');
+favoritesCount++;
+} else {
+this.classList.remove('fa-solid', 'text-red-500');
+this.classList.add('fa-regular');
+favoritesCount--;
+}
+updateUI();
+});
+});
+
+// Copy button functionality
+document.querySelectorAll('.copy-btn').forEach(button => {
+button.addEventListener('click', function() {
+const number = this.getAttribute('data-number');
+const service = this.getAttribute('data-service');
+
+// Copy to clipboard
+navigator.clipboard.writeText(number).then(() => {
+alert(`Copied ${service} number: ${number}`);
+copyCount++;
+updateUI();
+}).catch(err => {
+console.error('Failed to copy: ', err);
+alert('Failed to copy number. Please try again.');
+});
+});
+});
+
+// Call button functionality
+document.querySelectorAll('.call-btn').forEach(button => {
+button.addEventListener('click', function() {
+const number = this.getAttribute('data-number');
+const service = this.getAttribute('data-service');
+
+// Check if user has enough coins
+if (coinsCount < 20) {
+alert("You don't have enough coins to make a call. You need 20 coins.");
+return;
+}
+
+// Deduct coins
+coinsCount -= 20;
+updateUI();
+
+// Show alert
+alert(`Calling ${service} at ${number}`);
+
+// 
+
+// Add to call history
+function addToCallHistory(service, number) {
+// Get current time
+const now = new Date();
+const timeString = now.toLocaleTimeString();
+const dateString = now.toLocaleDateString();
