@@ -88,3 +88,57 @@ function addToCallHistory(service, number) {
 const now = new Date();
 const timeString = now.toLocaleTimeString();
 const dateString = now.toLocaleDateString();
+
+// Create history item
+const historyItem = {
+service,
+number,
+time: `${dateString} ${timeString}`
+};
+
+// Add to beginning of array
+callHistory.unshift(historyItem);
+
+// Update UI
+renderCallHistory();
+}
+
+// Render call history
+function renderCallHistory() {
+// Clear current history
+callHistoryListEl.innerHTML = '';
+
+if (callHistory.length === 0) {
+callHistoryListEl.appendChild(emptyHistoryMessageEl);
+return;
+}
+
+emptyHistoryMessageEl.remove();
+
+// Add each history item
+callHistory.forEach(item => {
+const historyItemEl = document.createElement('div');
+historyItemEl.className = 'call-history-item';
+historyItemEl.innerHTML = `
+<p class="font-semibold">${item.service}</p>
+<p class="text-lg my-1">${item.number}</p>
+<p class="text-sm text-gray-500">${item.time}</p>
+`;
+callHistoryListEl.appendChild(historyItemEl);
+});
+}
+
+// Clear history functionality
+clearHistoryBtn.addEventListener('click', function() {
+callHistory = [];
+renderCallHistory();
+});
+
+// Mobile menu toggle
+mobileMenuButton.addEventListener('click', function() {
+mobileMenu.classList.toggle('hidden');
+});
+
+// Initialize the UI
+updateUI();
+renderCallHistory();
