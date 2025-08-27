@@ -16,3 +16,13 @@ const emptyHistoryMessageEl = document.getElementById('empty-history-message');
 const clearHistoryBtn = document.getElementById('clear-history-btn');
 const mobileMenuButton = document.getElementById('mobile-menu-button');
 const mobileMenu = document.getElementById('mobile-menu');
+
+// Initialize the UI
+function updateUI() {
+favoritesCountEl.textContent = favoritesCount;
+coinsCountEl.textContent = coinsCount;
+copyCountEl.textContent = copyCount;
+mobileFavoritesCountEl.textContent = favoritesCount;
+mobileCoinsCountEl.textContent = coinsCount;
+mobileCopyCountEl.textContent = copyCount;
+}
